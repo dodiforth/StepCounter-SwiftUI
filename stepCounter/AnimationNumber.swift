@@ -13,16 +13,23 @@ struct AnimationNumber: View {
     
     var body: some View {
         ZStack{
+            
+            // Guide color setting to see the space of current stack
+            //Color.orange
+            
+            // Track circle
             Circle()
                 .stroke(style: .init(lineWidth: 8, lineCap: .round, lineJoin: .round))
                 .foregroundColor(Color(.systemGray4))
                 .frame(width: 300, height: 300)
+            // Animation circle
             Circle()
                 .trim(from: 0, to: number/10000)
                 .stroke(style: .init(lineWidth: 8, lineCap: .round, lineJoin: .round))
                 .foregroundColor(.accentColor)
                 .frame(width: 300, height: 300)
-                .rotationEffect(.degrees(-90))
+            // without "rotationEffect" our stroke will start on the right hand side of the circle, we want it to start at the top middle of the circle.
+                .rotationEffect(.degrees(-90)) //Everything will shift anti-clockwise 90 degrees
                 .shadow(radius: 5)
             
             VStack{
@@ -40,6 +47,7 @@ struct AnimationNumber: View {
                     .foregroundColor(.secondary)
             }
         }
+        // Responding to view life cycle updates
         .onAppear{
             withAnimation(.default){
                 number = .random(in: 0.0 ..< 10000.0)
